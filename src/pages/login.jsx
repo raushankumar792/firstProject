@@ -33,15 +33,19 @@ const login = () => {
         body: JSON.stringify(login),
       });
 
+      const data = await response.json();
+      console.log(data.extraDetails);
       console.log(response);
       if (response.ok) {
-        const data = await response.json(); //Parse the json response to get the token
-        alert("Login successful...");
+        //Parse the json response to get the token
+        alert("Login successfully...");
         storeTokenInLs(data.token); // store the token localstorage
         navigate("/home");
+      } else {
+        alert(data.extraDetails ? data.extraDetails : data.message);
       }
     } catch (error) {
-      alert("invalid credential");
+      // alert("invalid credential");
     }
   };
   return (
@@ -52,7 +56,7 @@ const login = () => {
             <h1>Login</h1>
           </center>
           <div className="login_form">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Username</label>
             <br />
             <input
               type="email"

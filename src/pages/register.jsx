@@ -34,16 +34,17 @@ const register = () => {
         },
         body: JSON.stringify(user),
       });
+      const data = await response.json();
+      console.log(data.extraDetails);
       if (response.ok) {
-        const data = await response.json();
         // stored the token in localhost
         storeTokenInLs(data.token);
         console.log("data", data);
-        alert("registration success");
+        alert("Registration successfully...");
         navigate("/login");
+      } else {
+        alert(data.extraDetails ? data.extraDetails : data.message);
       }
-
-      console.log(response);
     } catch (error) {
       console.log("register", error);
     }
@@ -58,8 +59,8 @@ const register = () => {
                 <img
                   src="/images/register.png"
                   alt="Registration Image"
-                  width={400}
-                  height={500}
+                  width={300}
+                  height={400}
                 />
               </div>
               {/* let tackle registraion form */}
@@ -68,12 +69,12 @@ const register = () => {
                 <br />
                 <form onSubmit={handleSubmit}>
                   <div>
-                    <label htmlFor="username">username</label>
+                    <label htmlFor="username">Name</label>
                     <br />
                     <input
                       type="text"
                       name="username"
-                      placeholder="username"
+                      placeholder="Name"
                       id="username"
                       required
                       autoComplete="off"
@@ -83,7 +84,7 @@ const register = () => {
                   </div>
                   <br />
                   <div>
-                    <label htmlFor="email">email</label>
+                    <label htmlFor="email">Email</label>
                     <br />
                     <input
                       type="email"
@@ -114,7 +115,7 @@ const register = () => {
                   <br />
 
                   <div>
-                    <label htmlFor="password">password</label>
+                    <label htmlFor="password">Password</label>
                     <br />
                     <input
                       type="password"
